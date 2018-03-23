@@ -1,10 +1,14 @@
 angular.module('video-player').component('videoPlayer', {
+  bindings: {
+    selected: '<'
+  },
   controller: function($sce) {
-    this.video = window.exampleVideoData[0];
-    this.videoUrl = 'https://www.youtube.com/embed/' + this.video.id.videoId;
 
     this.trustSrc = function() {
-      return $sce.trustAsResourceUrl(this.videoUrl);
+      console.log(`currently selected in videoPlayer: ${this.selected.snippet.title}`)
+      const videoUrl =
+        'https://www.youtube.com/embed/' + this.selected.id.videoId;
+      return $sce.trustAsResourceUrl(videoUrl);
     };
   },
   templateUrl: 'src/templates/videoPlayer.html'
