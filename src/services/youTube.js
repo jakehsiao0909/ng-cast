@@ -1,5 +1,6 @@
 angular.module('video-player').service('youTube', function($http) {
-  this.getVideos = function(query) {
+  this.getVideos = function(query, cb) {
+
     $http
       .get('https://www.googleapis.com/youtube/v3/search', {
         params: {
@@ -11,7 +12,7 @@ angular.module('video-player').service('youTube', function($http) {
           part: 'snippet'
         }
       })
-      .then(result => console.log(result))
+      .then(result => cb(result.data.items))
       .catch(error => console.error('Error in the get request: ', error));
   };
 });
